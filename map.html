@@ -14,26 +14,37 @@
     	text-align: center;
     }
 
+    .map-div {
+    	float: left;
+    }
+
+    .chart-div {
+    	float: left;
+    }
+
     </style>
     <script type="text/javascript">  
 
       function draw(geo_data) {
         "use strict";
-        var margin = 75,
-            width = 1000 - margin,
-            height = 600 - margin;
+        var margin = 50,
+            width = 700,
+            height = 500,
+            chart_width = 400,
+            chart_height = 200;
 
-        var svg = d3.select("body")
+        var svg = d3.select(".map-div")
             .append("svg")
             .attr("width", width + margin)
             .attr("height", height + margin)
-            .append('g')
-            .attr('class', 'map');
+            .append('g');
 
-        var chart_svg = d3.select("body")
+        var chart_svg = d3.select(".chart-div")
         	.append("svg")
-        	.attr("width", width + margin)
-        	.attr("height", height + margin)
+        	.attr("width", chart_width + margin)
+        	.attr("height", chart_height + margin)
+        	.attr('class', 'chart');
+
 
         var projection = d3.geo.mercator()
                                .scale(140)
@@ -136,5 +147,10 @@
 	<br><br>
   Mouse over a country to see how many of their songs made the countdown since 1993. 
   </p>
+
+  <div class = "map-div">
+  </div>
+  <div class = "chart-div">
+  </div>
 </body>
 </html>
