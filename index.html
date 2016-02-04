@@ -31,7 +31,7 @@
             width = 700,
             height = 500,
             chart_width = 400,
-            chart_height = 200;
+            chart_height = 500;
 
         var svg = d3.select(".map-div")
             .append("svg")
@@ -47,7 +47,7 @@
 
 
         var projection = d3.geo.mercator()
-                               .scale(140)
+                               .scale(120)
                                .translate([width / 2, height / 1.3]);
 
         var path = d3.geo.path().projection(projection);
@@ -93,18 +93,41 @@
 
       		  //plot the graph as well
             var myChart = new dimple.chart(chart_svg, data);
+            myChart.y = 100;
+            myChart.height = chart_height - 200;
 	          var x = myChart.addCategoryAxis("x", "Year");
 	          x.addOrderRule("Date");
 	          myChart.addMeasureAxis("y", "Count");
 	          var s = myChart.addSeries("Country", dimple.plot.area);
-	          myChart.addLegend(60, 10, 510, 20, "right");
+	          myChart.addLegend(60, 10, chart_width, 100, "left");
 	          myChart.draw();
+
+	          // add a title to the chart
+	          //http://stackoverflow.com/questions/25416063/title-for-charts-and-axes-in-dimple-js-charts
+	          chart_svg.append("text")
+	           .attr("id", "title")
+					   .attr("x", myChart._xPixels() + myChart._widthPixels() / 2)
+					   .attr("y", myChart._yPixels() - 20)
+					   .style("text-anchor", "middle")
+					   .style("font-family", "sans-serif")
+					   .style("font-weight", "bold")
+					   .text("");
+
+					function show_default_chart(){
+						myChart.data = data;
+						chart_svg.select("#title")
+      				.text("");
+						myChart.draw();
+					}
+
 
       		function update_chart(selected_country){
       			//updates the current displaying chart to show only the selected country
       			myChart.data = data.filter(function (d) {
       				return d.Country == selected_country.key;
       			})
+      			chart_svg.select("#title")
+      				.text(selected_country.key);
       			myChart.draw();
       		}
 
@@ -114,10 +137,11 @@
 		    	.domain(d3.extent(nested, function (d) {
 		    		return d.values;
 		    	}))
-		    	.range(['grey','black']);
+		    	.range(['lightBlue','darkBlue']);
 
 
       		// http://stackoverflow.com/questions/9518186/manipulate-elements-by-binding-new-data
+      		//http://www.stator-afm.com/tutorial/d3-js-mouse-events/
       		//set the fill of the countries based on the number of songs
       		svg.selectAll('path')
                  .data(nested, function (d) {
@@ -126,7 +150,8 @@
                  .style('fill', function(d) {
                  	return colorScale(d.values);
                  })
-                 .on("mouseover", update_chart);
+                 .on("mouseover", update_chart)
+                 .on("mouseout", show_default_chart);
 
 
       });
@@ -139,13 +164,13 @@
     Use D3 to load the GeoJSON file
     */
     
-	d3.json("world_countries.json", draw);
+	d3.json("data/world_countries.json", draw);
   </script>
   <h1>Origins of the Songs in Australia's Hottest 100 Music Countdown</h1>
   <p class="subtitle">
-  The Triple J Hottest 100 takes place every Australia day and is the largest musical democracy in the world.
+  The Triple J Hottest 100 is the largest musical democracy in the world.
 	<br><br>
-  Mouse over a country to see how many of their songs made the countdown since 1993. 
+  Mouse over a country to see how many of their songs made the countdown every year since 1993
   </p>
 
   <div class = "map-div">
