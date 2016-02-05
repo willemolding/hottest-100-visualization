@@ -34,3 +34,4 @@ http://stackoverflow.com/questions/9518186/manipulate-elements-by-binding-new-da
 http://www.stator-afm.com/tutorial/d3-js-mouse-events/
 http://stackoverflow.com/questions/25416063/title-for-charts-and-axes-in-dimple-js-charts
 https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
