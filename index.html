@@ -77,30 +77,49 @@
 	      			.rollup(function(leaves) {
 	      				return leaves.length;
 	      			})
-	      			.entries(data);
+	      			.entries(data)
+              .sort(function(a, b){ return d3.descending(a.values, b.values); });
 
 	      		//set the id property so we can correctly data bind by country name
 	      		nested.forEach(function (d) {
 	      			d["id"] = d["key"];
 	      		});    		
 
-	      		debugger;
-
 	      		data.forEach(function (d) {
-	      			d["Count"] = 1;
+	      			d["Number of Songs in Countdown"] = 1;
 	      		})
 
+            //create a version of the data where the countries other than the top 3 are listed as other.
+            //This should make the area plot easier to read
+            var top_countries = new Array;
+            var number_of_top = 3;
+
+            nested.slice(0,number_of_top).forEach(function (d) {
+              top_countries.push(d.key);
+            });
+
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+            var data_top_only = data.map(function (d) {
+              var new_d = Object.create(d);
+              if(top_countries.indexOf(d.Country) == -1){
+                new_d.Country = "Other";
+              }
+              return new_d;
+            });
+
+            debugger;
 
       		  //plot the graph as well
-            var myChart = new dimple.chart(chart_svg, data);
+            var myChart = new dimple.chart(chart_svg, data_top_only);
             myChart.y = 100;
             myChart.height = chart_height - 200;
-	          var x = myChart.addCategoryAxis("x", "Year");
+	          var x = myChart.addTimeAxis("x", "Year", null, "%Y");
 	          x.addOrderRule("Date");
-	          myChart.addMeasureAxis("y", "Count");
+	          var y = myChart.addMeasureAxis("y", "Number of Songs in Countdown");
 	          var s = myChart.addSeries("Country", dimple.plot.area);
 	          myChart.addLegend(60, 10, chart_width, 100, "left");
 	          myChart.draw();
+
 
 	          // add a title to the chart
 	          //http://stackoverflow.com/questions/25416063/title-for-charts-and-axes-in-dimple-js-charts
@@ -114,7 +133,7 @@
 					   .text("");
 
 					function show_default_chart(){
-						myChart.data = data;
+						myChart.data = data_top_only;
 						chart_svg.select("#title")
       				.text("");
 						myChart.draw();
@@ -129,6 +148,7 @@
       			chart_svg.select("#title")
       				.text(selected_country.key);
       			myChart.draw();
+
       		}
 
 
