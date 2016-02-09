@@ -148,12 +148,14 @@
 					   .style("font-weight", "bold")
 					   .text("");
 
+
 					function show_default_chart(){
 						myChart.data = data_top_only.filter(function (d) {
               return d.Number <= count_filter;
             });
 						chart_svg.select("#title")
       				.text("");
+
 						myChart.draw(animation_duration);
 					}
 
@@ -169,7 +171,9 @@
 
       			chart_svg.select("#title")
       				.text(selected_country.key);
+
       			myChart.draw(animation_duration);
+
 
       		}
 
