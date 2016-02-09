@@ -5,10 +5,10 @@ https://willemolding.github.io/hottest-100-visualization
 ## Summary
 Each year the Australian radio station Triple J conducts a nation wide music survey to find the most popular songs that were released in the previous year. The `hottest' 100 songs are played as a countdown every Australia day. My visualization allows the viewer to explore where in the world the songs originate from and how Australians music tastes have changed in the years since 1993.
 
-It is interesting to see the rise in the number of Australian songs appearing in the countdown along with the decrease in the number of songs from the USA. 
+This is predominately a user driven data visualization. The user is able to explore details regarding their country of interest. Some interesting things to explore are the increase in the number of Australian entries in the countdown as time progresses and a reduction in number of songs originating from the USA.
 
 ## Design
-This is the second version of the visualization. 
+This is the third version of the visualization. 
 
 - The fill of each country polygon is colored based on the total number of songs it has had in all the years combined. 
 
@@ -16,10 +16,13 @@ This is the second version of the visualization.
 
 - Mousing over a country in the map will change the chart to show only the songs from that country that country across the years. The fill color of each country is also a function of the total number of songs that have made the countdown. The color scale for this ranges from light blue to dark blue with countries with zero being white. This encoding makes it easy to see which countries have more data to explore while giving an indicator of relative song popularity of the countries. 
 
+- The data can be filtered to the top 100, 50, 10, or 5 songs by clicking on the buttons at the top. This allows the user to explore additional aspects of the data set.
+
 Improvements made based on feedback
 
 - The x axis on the chart was changed to a time axis rather than categorical so the dates appear on the tick marks
 - Grouped all but the big 3 countries into an other group for the area plot
+- Add buttons to filter to the top 100, 50, 10, or 5 songs.
 
 ## Feedback
 Reviewer 1:
@@ -27,8 +30,6 @@ Fascinating to see the decline in USA input and how England appears to be more o
 
 Reviewer 2:
 On the overall all time plot I find it's pretty difficult to discern anything beyond the big three countries, so maybe group the rest into "Other". I'd prefer either dot points or individual bars to a continuous graph. The continuous one actually has some faults at the moment because if a country got a song in non-consecutive years, the years in between look like they appear in the countdown.
-
-I'm not sure about the best way to do the map. The way I'm imagining it, the eligible countries are listed in total count order, and mousing over a country brings up a more zoomed in map of just the country and the surrounding areas of the globe.
 
 Reviewer 3:
 It would be cool if you could filter the data by top 100, top 50, top 10 for example and see which countries are producing the really popular music. I would also like to see information about individual songs. Like when you mouse over points on the graph it could list the ones from that country.

@@ -22,6 +22,18 @@
     	float: left;
     }
 
+
+    div.filter-buttons {
+      text-align: center;
+    }
+
+    div.filter-buttons div {
+      display: inline-block;
+      background-color: lightBlue;
+      padding: 3px;
+      margin: 7px;
+    }
+
     </style>
     <script type="text/javascript">  
 
@@ -32,6 +44,8 @@
             height = 500,
             chart_width = 400,
             chart_height = 500;
+
+        var animation_duration = 500;
 
         var svg = d3.select(".map-div")
             .append("svg")
@@ -44,6 +58,9 @@
         	.attr("width", chart_width + margin)
         	.attr("height", chart_height + margin)
         	.attr('class', 'chart');
+
+        var count_filters = [100, 50, 10, 5];
+        var count_filter = 100;
 
 
         var projection = d3.geo.mercator()
@@ -107,7 +124,6 @@
               return new_d;
             });
 
-            debugger;
 
       		  //plot the graph as well
             var myChart = new dimple.chart(chart_svg, data_top_only);
@@ -132,24 +148,53 @@
 					   .style("font-weight", "bold")
 					   .text("");
 
+
 					function show_default_chart(){
-						myChart.data = data_top_only;
+						myChart.data = data_top_only.filter(function (d) {
+              return d.Number <= count_filter;
+            });
 						chart_svg.select("#title")
       				.text("");
-						myChart.draw();
+
+						myChart.draw(animation_duration);
 					}
 
 
       		function update_chart(selected_country){
       			//updates the current displaying chart to show only the selected country
       			myChart.data = data.filter(function (d) {
-      				return d.Country == selected_country.key;
-      			})
+      				  return d.Country == selected_country.key;
+      			 })
+              .filter(function (d) {
+              return d.Number <= count_filter;
+              });
+
       			chart_svg.select("#title")
       				.text(selected_country.key);
-      			myChart.draw();
+
+      			myChart.draw(animation_duration);
+
 
       		}
+
+
+          function update_count_filter(n){
+            //updates the chart and country colours to only show top n songs songs
+            d3.select(".filter-buttons")
+              .selectAll("div")
+              .transition()
+              .duration(500)
+              .style("background", "lightBlue");
+
+            d3.select(this)
+              .transition()
+              .duration(500)
+              .style("background", "yellow");
+
+
+            count_filter = n;
+            show_default_chart();
+          }
 
 
       		//create a color scale
@@ -174,6 +219,21 @@
                  .on("mouseout", show_default_chart);
 
 
+          var buttons = d3.select(".filter-buttons")
+                        .selectAll("div")
+                        .data(count_filters)
+                        .enter()
+                        .append("div")
+                        .text(function(d) {
+                            return "Top "+d;
+                        })
+                        .on("click", update_count_filter);
+
+          d3.select(".filter-buttons")
+            .select("div")
+            .style("background", "yellow");
+
+
       });
     };
     </script>
@@ -193,9 +253,8 @@
   Mouse over a country to see how many of their songs made the countdown every year since 1993
   </p>
 
-  <div class = "map-div">
-  </div>
-  <div class = "chart-div">
-  </div>
+  <div class = "filter-buttons"></div>
+  <div class = "map-div"></div>
+  <div class = "chart-div"></div>
 </body>
 </html>
