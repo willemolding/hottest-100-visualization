@@ -109,6 +109,7 @@ function draw(geo_data) {
         var x = myChart.addTimeAxis("x", "Year", null, "%Y");
         x.addOrderRule("Date");
         var y = myChart.addMeasureAxis("y", "Number of Songs in Countdown");
+        y.tickFormat = ".0f";
         var s = myChart.addSeries("Country", dimple.plot.area);
         myChart.addLegend(60, 10, chart_width, 100, "left");
         myChart.draw();
@@ -151,6 +152,23 @@ function draw(geo_data) {
             chart_svg.select("#title")
                 .text(selected_country.key);
 
+            //ensure that there are never more ticks than total songs
+            //but not more than 10 or it becomes unreadable
+            //first find the highest song count
+            var highest_count = d3.nest()
+                .key(function(d) {
+                    return d['Year'];
+                })
+                .rollup(function(leaves) {
+                    return leaves.length;
+                })
+                .entries(myChart.data)
+                .sort(function(a, b) {
+                    return d3.descending(a.values, b.values);
+                })[0].values;
+
+            var y = myChart.axes[1];
+            y.ticks = Math.min(highest_count, 10);
             myChart.draw(animation_duration);
 
 
