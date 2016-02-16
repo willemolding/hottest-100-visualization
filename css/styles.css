@@ -1,0 +1,26 @@
+h1 {
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.map-div {
+    float: left;
+}
+
+.chart-div {
+    float: left;
+}
+
+div.filter-buttons {
+    text-align: center;
+}
+
+div.filter-buttons div {
+    display: inline-block;
+    background-color: lightBlue;
+    padding: 3px;
+    margin: 7px;
+}
