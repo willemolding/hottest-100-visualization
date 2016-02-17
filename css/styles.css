@@ -1,0 +1,49 @@
+h1 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+.subtitle {
+    text-align: center;
+}
+
+.map-div {
+    float: left;
+    width: 60%;
+}
+
+.chart-div {
+    float: left;
+    width: 30%;
+}
+
+div.filter-buttons {
+    text-align: center;
+}
+
+div.filter-buttons div {
+    display: inline-block;
+    background-color: lightBlue;
+    padding: 3px;
+    margin: 7px;
+}
+
+table.legend {
+	margin: 0 auto;
+}
+
+td.key {
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 3%;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+.chart-desc {
+	text-align: center;
+}
