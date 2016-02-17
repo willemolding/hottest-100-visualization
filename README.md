@@ -8,7 +8,7 @@ Each year the Australian radio station Triple J conducts a nation wide music sur
 This is predominately a user driven data visualization. The user is able to explore details regarding their country of interest. Some interesting things to explore are the increase in the number of Australian entries in the countdown as time progresses and a reduction in number of songs originating from the USA.
 
 ## Design
-This is the third version of the visualization. 
+This is the fourth version of the visualization. 
 
 - The fill of each country polygon is colored based on the total number of songs it has had in all the years combined. 
 
@@ -17,6 +17,8 @@ This is the third version of the visualization.
 - Mousing over a country in the map will change the chart to show only the songs from that country that country across the years. The fill color of each country is also a function of the total number of songs that have made the countdown. The color scale for this ranges from light blue to dark blue with countries with zero being white. This encoding makes it easy to see which countries have more data to explore while giving an indicator of relative song popularity of the countries. 
 
 - The data can be filtered to the top 100, 50, 10, or 5 songs by clicking on the buttons at the top. This allows the user to explore additional aspects of the data set.
+
+- There is a description of how to read the area plot and a color bar legend for the map
 
 Improvements made based on feedback
 
