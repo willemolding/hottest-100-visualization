@@ -122,6 +122,37 @@ function draw(geo_data) {
             return new_d;
         });
 
+        //create a color scale for the choropleth
+        var colorScale = d3.scale.linear()
+            .domain(d3.extent(nested, function(d) {
+                return d.values;
+            }))
+            .range(['lightBlue', 'darkBlue']);
+
+
+        // Add a color scale legend
+        //http://eyeseast.github.io/visible-data/2013/08/27/responsive-legends-with-d3/
+
+        d3.select('.map-div')
+            .append('h4')
+            .text('Total number of entries since 1993');
+        var legend = d3.select('.map-div')
+            .append('table')
+            .attr('class', 'legend')
+            .append('tr');
+
+        var keys = legend.selectAll('td.key')
+            .data(colorScale.ticks(10));
+
+        keys.enter().append('td')
+            .attr('class', 'key')
+            .style('border-top-color', function(d) {
+                return colorScale(d);
+            })
+            .text(function(d) {
+                return String(d);
+            });
+
 
         //Add the dimple stacked line chart to the page
         var myChart = new dimple.chart(chart_svg, data_top_only);
@@ -217,14 +248,6 @@ function draw(geo_data) {
             count_filter = n;
             show_default_chart();
         }
-
-
-        //create a color scale for the choropleth
-        var colorScale = d3.scale.linear()
-            .domain(d3.extent(nested, function(d) {
-                return d.values;
-            }))
-            .range(['lightBlue', 'darkBlue']);
 
 
         // http://stackoverflow.com/questions/9518186/manipulate-elements-by-binding-new-data

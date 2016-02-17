@@ -2,6 +2,9 @@ h1 {
     text-align: center;
 }
 
+h4 {
+    text-align: center;
+}
 .subtitle {
     text-align: center;
 }
@@ -23,4 +26,18 @@ div.filter-buttons div {
     background-color: lightBlue;
     padding: 3px;
     margin: 7px;
+}
+
+table.legend {
+	margin: 0 auto;
+}
+
+td.key {
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 3%;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
 }
