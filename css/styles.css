@@ -11,10 +11,12 @@ h4 {
 
 .map-div {
     float: left;
+    width: 60%;
 }
 
 .chart-div {
     float: left;
+    width: 30%;
 }
 
 div.filter-buttons {
@@ -40,4 +42,8 @@ td.key {
     padding-left: 0;
     padding-right: 0;
     text-align: center;
+}
+
+.chart-desc {
+	text-align: center;
 }

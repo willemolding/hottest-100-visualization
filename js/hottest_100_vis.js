@@ -3,8 +3,8 @@ function draw(geo_data) {
     var margin = 50,
         width = 700,
         height = 500,
-        chart_width = 400,
-        chart_height = 500;
+        chart_width = 500,
+        chart_height = 400;
 
     var animation_duration = 500;
 
@@ -21,6 +21,13 @@ function draw(geo_data) {
         .attr("width", chart_width + margin)
         .attr("height", chart_height + margin)
         .attr('class', 'chart');
+
+    //A description of the chart underneath
+    d3.select(".chart-div")
+        .append("p")
+        .attr("class", "chart-desc")
+        .text("For each year, the total number of songs from a given country is proportional to the \
+            coloured area.");
 
     // Data can be filtered to only show the top this number of songs
     var count_filters = [100, 50, 10, 5];
@@ -157,12 +164,12 @@ function draw(geo_data) {
         //Add the dimple stacked line chart to the page
         var myChart = new dimple.chart(chart_svg, data_top_only);
         myChart.y = 100;
-        myChart.height = chart_height - 200;
+        myChart.height = chart_height - 100;
         var x = myChart.addTimeAxis("x", "Year", null, "%Y");
         x.addOrderRule("Date");
         var y = myChart.addMeasureAxis("y", "Number of Songs in Countdown");
         y.tickFormat = ".0f";
-        var s = myChart.addSeries("Country", dimple.plot.area);
+        myChart.addSeries("Country", dimple.plot.area);
         myChart.addLegend(60, 10, chart_width, 100, "left");
         myChart.draw();
 
@@ -176,26 +183,30 @@ function draw(geo_data) {
             .style("text-anchor", "middle")
             .style("font-family", "sans-serif")
             .style("font-weight", "bold")
-            .text("");
+            .text("All Countries");
 
 
         // Function to show the default chart with all countries. 
         //This should be displayed when there is no mouseover
         function show_default_chart() {
+
+
             myChart.data = data_top_only.filter(function(d) {
                 return d.Number <= count_filter;
             });
             chart_svg.select("#title")
-                .text("");
+                .text("All Countries");
 
             y.ticks = Math.min(count_filter, 10);
 
             myChart.draw(animation_duration);
+
         }
 
         // Function to display the plot for the counts of a single country over time
         // This should be displayed when the country of interest is mouseovered
         function update_chart(selected_country) {
+
             myChart.data = data.filter(function(d) {
                     return d.Country == selected_country.key;
                 })
@@ -223,9 +234,8 @@ function draw(geo_data) {
 
             var y = myChart.axes[1];
             y.ticks = Math.min(highest_count, 10);
+
             myChart.draw(animation_duration);
-
-
         }
 
         // When the one of the top count buttons is pressed this function
@@ -283,5 +293,8 @@ function draw(geo_data) {
             .style("background", "yellow");
 
 
+
     });
+
+
 };
