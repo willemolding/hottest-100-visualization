@@ -80,6 +80,27 @@ function draw(geo_data) {
             d["Number of Songs in Countdown"] = 1;
         })
 
+
+        // Also make sure there is an entry for every year for each country
+        // Adds a dummy entry with a song count of 0
+        // This makes the dimple.js plot work correctly for countries with few songs.
+        d3.nest()
+            .key(function(d) {
+                return d['Country'];
+            })
+            .rollup(function(leaves) {
+                for (var i = 1993; i <= 2015; i++) {
+                    data.push({
+                        "Number": "1",
+                        "Country": leaves[0].Country,
+                        "Year": String(i),
+                        "Number of Songs in Countdown": 0
+                    })
+                }
+            })
+            .entries(data);
+
+
         //create a version of the data where the countries other than the top 3 are listed as other.
         //This should make the area plot easier to read
         var top_countries = new Array;
@@ -136,6 +157,8 @@ function draw(geo_data) {
             chart_svg.select("#title")
                 .text("");
 
+            y.ticks = Math.min(count_filter, 10);
+
             myChart.draw(animation_duration);
         }
 
@@ -160,7 +183,7 @@ function draw(geo_data) {
                     return d['Year'];
                 })
                 .rollup(function(leaves) {
-                    return leaves.length;
+                    return leaves.length - 1;
                 })
                 .entries(myChart.data)
                 .sort(function(a, b) {
