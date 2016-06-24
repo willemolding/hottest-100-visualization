@@ -1,6 +1,6 @@
 # Visualization of countries of origin for songs in the Triple J Hottest 100
 
-https://willemolding.github.io/hottest-100-visualization
+http://willemolding.github.io/hottest-100-visualization
 
 ## Summary
 Each year the Australian radio station Triple J conducts a nation wide music survey to find the most popular songs that were released in the previous year. The `hottest' 100 songs are played as a countdown every Australia day. My visualization allows the viewer to explore where in the world the songs originate from and how Australians music tastes have changed in the years since 1993.
